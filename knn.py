@@ -15,8 +15,8 @@ class Knn:
 		self.run()
 
 	def run(self):
-		for sample1, sample2 in zip(self.X_dev[:, 0], self.X_dev[:, 1]):
-			self.get_neighbors([sample1, sample2])
+		for instance in self.X_dev:
+			self.get_neighbors(instance)
 			self.predictions.append(self.get_majority_vote())
 
 	#from https://dataconomy.com/2015/04/implementing-the-five-most-popular-similarity-measures-in-python/
@@ -28,8 +28,7 @@ class Knn:
 	  	""" get distances, sort, and retrun the k nearest neighbors """
 	  	distances = []
 	  	labels_index = 0
-	  	for sample1, sample2 in zip(self.X_train[:, 0], self.X_train[:, 1]):
-	  		instance = [sample1, sample2]
+	  	for instance in self.X_train:
 	  		dist = self.euclidean_distance(test_instance, instance)
 	  		distances.append([instance, dist, self.y_train[labels_index]])
 	  		labels_index += 1
