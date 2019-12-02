@@ -80,7 +80,8 @@ class KnnParallel:
 
 	  	p_list = []
 
-	  	for i in range(1, self.num_procs+1):
+	  	# for i in range(1, self.num_procs+1):
+	  	for i in range(1, 5):
 	  		# A pair of queues per process for the two arrays
 	  		xq = Queue()
 	  		yq = Queue()
