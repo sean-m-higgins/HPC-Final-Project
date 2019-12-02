@@ -27,9 +27,6 @@ def run_knn(n, p, k, parallel, num_procs):
 	predictions = knn.predictions
 	correct = 0
 	for pred, actual in zip(predictions, y_dev):
-		# print(pred)
-		# print(actual)
-		# print("hi")
 		if int(pred) == int(actual):
 			correct += 1
 	
@@ -68,31 +65,41 @@ if __name__ == "__main__":
 
 	print("| # of rows | # of colums | k neighbors | approx. operations | time (s) | parallel | # of processes | accuracy")
 	
-	run_knn(1000, 2, 3, False, 1)
-	run_knn(1000, 2, 3, True, 50)
+	# run_knn(1000, 2, 3, False, 1)
+	# run_knn(1000, 2, 3, True, 50)
 
 	# rows
 	run_set1 = [ [100, 4, 10], [1000, 4, 10], [10000, 4, 10], [100000, 4, 10] ]
-	for row in run_set1:
-		run_knn(row[0], row[1], row[2], False, 1)
-		run_knn(row[0], row[1], row[2], True, 50)
-
 	# columns
 	run_set2 = [ [1000, 4, 10], [1000, 40, 10], [1000, 400, 10], [1000, 4000, 10] ]
-	for row in run_set2:
-		run_knn(row[0], row[1], row[2], False, 1)
-		run_knn(row[0], row[1], row[2], True, 50)
-
 	# k neighbors
 	run_set3 = [ [1000, 4, 10], [1000, 4, 100], [1000, 4, 1000], [1000, 4, 10000] ]
-	for row in run_set3:
-		run_knn(row[0], row[1], row[2], False, 1)
-		run_knn(row[0], row[1], row[2], True, 50)
-
 	# processes
 	run_set4 = [ [1000, 4, 10, 16], [1000, 4, 10, 32], [1000, 4, 10, 64], [1000, 4, 10, 128] ]
+	
+	# Serial
+	for row in run_set1:
+		run_knn(row[0], row[1], row[2], False, 1)
+
+	for row in run_set2:
+		run_knn(row[0], row[1], row[2], False, 1)
+
+	for row in run_set3:
+		run_knn(row[0], row[1], row[2], False, 1)
+
 	for row in run_set4:
 		run_knn(row[0], row[1], row[2], False, 1)
-		run_knn(row[0], row[1], row[2], True, row[3])
 
+	# Parallel
+	for row in run_set1:
+		run_knn(row[0], row[1], row[2], True, 50)
+
+	for row in run_set2:
+		run_knn(row[0], row[1], row[2], True, 50)
+
+	for row in run_set3:
+		run_knn(row[0], row[1], row[2], True, 50)
+
+	for row in run_set4:
+		run_knn(row[0], row[1], row[2], True, row[3])
 
