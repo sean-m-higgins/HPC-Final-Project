@@ -96,7 +96,6 @@ class KnnParallel:
 	  	for i in range(distances.qsize()):
 	  		new_distances = distances.get()
 	  		for item in new_distances:
-	  			print(item)
 	  			top_distances.append(item)
 	  
 	  	top_distances.sort(key=operator.itemgetter(1))
