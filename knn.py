@@ -11,7 +11,7 @@ class Knn:
 		self.k = k
 		self.X_dev = np.asarray(X_dev)
 		self.X_train = np.asarray(X_train)
-		self.y_train = y_train
+		self.y_train = np.asarray(y_train)
 		self.neighbors = []
 		self.predictions = []
 		self.run()

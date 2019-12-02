@@ -72,7 +72,7 @@ if __name__ == "__main__":
 	run_knn(1000, 2, 3, True, 50)
 
 	# rows
-	run_set1 = [ [10, 4, 10], [100, 4, 10], [1000, 4, 10], [10000, 4, 10] ]
+	run_set1 = [ [100, 4, 10], [1000, 4, 10], [10000, 4, 10], [100000, 4, 10] ]
 	for row in run_set1:
 		run_knn(row[0], row[1], row[2], False, 1)
 		run_knn(row[0], row[1], row[2], True, 50)
