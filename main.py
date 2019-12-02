@@ -80,6 +80,7 @@ if __name__ == "__main__":
 	# Serial
 	for row in run_set1:
 		run_knn(row[0], row[1], row[2], False, 1)
+		run_knn(row[0], row[1], row[2], True, 50)
 
 	for row in run_set2:
 		run_knn(row[0], row[1], row[2], False, 1)
