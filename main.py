@@ -27,6 +27,9 @@ def run_knn(n, p, k, parallel, num_procs):
 	predictions = knn.predictions
 	correct = 0
 	for pred, actual in zip(predictions, y_dev):
+		# print(pred)
+		# print(actual)
+		# print("hi")
 		if int(pred) == int(actual):
 			correct += 1
 	
