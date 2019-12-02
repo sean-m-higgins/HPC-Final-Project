@@ -100,8 +100,9 @@ class KnnParallel:
 	  			top_distances.append(item)
 	  
 	  	top_distances.sort(key=operator.itemgetter(1))
+	  	print(top_distances)
 	  	for i in range(self.k):
-	  		self.neighbors.append([top_distances[i][0], top_distances[i][2]])
+	  		self.neighbors.append(top_distances[i][2])
 
 	def get_distances(self, test_instance, X, y, distances):
 		new_distances = []
@@ -113,8 +114,7 @@ class KnnParallel:
 	def get_majority_vote(self):
 	  	""" return the vote with the highest count """
 	  	class_votes = {}
-	  	for row in self.neighbors:
-	  		vote = row[1]
+	  	for vote in self.neighbors:
 	  		class_votes.setdefault(vote, 0)
 	  		class_votes[vote] += 1
 	  	sorted_votes = sorted(class_votes.items(), key=lambda kv: kv[1], reverse=True)
