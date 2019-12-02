@@ -37,7 +37,7 @@ class Knn:
 	  		labels_index += 1
 	  	distances.sort(key=operator.itemgetter(1))
 	  	for i in range(self.k):
-	  		self.neighbors.append([distances[i][2]])
+	  		self.neighbors.append(distances[i][2])
 
 	def get_majority_vote(self):
 	  	""" return the vote with the highest count """
