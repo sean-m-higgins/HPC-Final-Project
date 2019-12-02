@@ -4,8 +4,6 @@ import datetime
 import math
 import multiprocessing
 from multiprocessing import Process, Pool
-import sklearn
-from sklearn.metrics import accuracy_score
 
 
 def run_knn(n, p, k, parallel, num_procs):
@@ -17,8 +15,6 @@ def run_knn(n, p, k, parallel, num_procs):
 		X_dev = np.random.rand(int(n*.2), p)
 		y_dev = np.concatenate((np.zeros(int((n/2)*.2)), np.ones(int((n/2)*.2))))
 			
-	print(len(X_dev))
-	print(len(y_dev))
 	one = str(datetime.datetime.now().time()).split(":")
 
 	if parallel:
@@ -28,8 +24,13 @@ def run_knn(n, p, k, parallel, num_procs):
 
 	two = str(datetime.datetime.now().time()).split(":")
 
-	predictions  = knn.predictions
-	accuracy = accuracy_score(y_dev, predictions)
+	predictions = knn.predictions
+	correct = 0
+	for pred, actual in zip(predictions, y_dev):
+		if int(pred) == int(actual):
+			correct += 1
+	
+	accuracy = correct/len(predictions)
 
 	len_X_train = len(X_train)
 	# KNN cost = run() --> get_neighbors() + get_majority_vote()
