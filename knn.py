@@ -74,15 +74,10 @@ class KnnParallel:
 	  
 	def get_neighbors(self, test_instance):
 	  	""" get distances, sort, and retrun the k nearest neighbors """
-
-	  	# Create the Queue which will have the partial products
 	  	distances=Queue()
-
 	  	p_list = []
 
-	  	# for i in range(1, self.num_procs+1):
 	  	for i in range(1, self.num_procs):
-
 	  		chunk = int(len(self.X_train)/self.num_procs)
 
 	  		x_slice = self.X_train[(i-1)*chunk:i*chunk]
@@ -92,7 +87,6 @@ class KnnParallel:
 	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, distances))
 	  		p_list.append(p)
 	  		p.start()
-	  		# p.join()
 
 	  	for p in p_list:
 	  		p.join
@@ -100,7 +94,9 @@ class KnnParallel:
 	  	# collect the individual distances
 	  	top_distances = []
 	  	for i in range(distances.qsize()):
-	  		top_distances.append(distances.get())
+	  		new_distances = distances.get()
+	  		for item in new_distances:
+	  			top_distances.append(item)
 	  
 	  	top_distances.sort(key=operator.itemgetter(1))
 	  	for i in range(self.k):
