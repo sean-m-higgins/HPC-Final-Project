@@ -76,7 +76,7 @@ class KnnParallel:
 	  	distances=Queue()
 	  	p_list = []
 
-	  	for i in range(1, self.num_procs):
+	  	for i in range(1, self.num_procs+1):
 	  		chunk = int(len(self.X_train)/self.num_procs)
 
 	  		x_slice = self.X_train[(i-1)*chunk:i*chunk]
