@@ -55,7 +55,7 @@ if __name__ == "__main__":
 	# for row in run_set:
 	# 	run_knn(row[0], row[1], row[2], False)
 
-	run_knn(1000, 4, 5, True)
+	run_knn(816, 2, 3, True)
 
 	print("Parallel:")
 	# Create the processes
