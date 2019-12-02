@@ -16,6 +16,8 @@ def run_knn(n, p, k, parallel, num_procs):
 		X_dev = np.random.rand(int(n*.2), p)
 		y_dev = np.concatenate((np.zeros(int((n/2)*.2)), np.ones(int((n/2)*.2))))
 			
+	print(len(X_dev))
+	print(len(y_dev))
 	one = str(datetime.datetime.now().time()).split(":")
 
 	if parallel:
@@ -33,12 +35,12 @@ def run_knn(n, p, k, parallel, num_procs):
 	# = (for each X_dev example) * { [get its neighbors] + [then get the top vote] }
 	# = (# of X_dev examples) * ...
 	# ...{ [ (# of X_train * ) + (sort # of X_train) + (k)] + [ (k*2) + (k) ] }
-	cost = len(X_dev) * ( ( (len_X_train*(2 + 4 + p*2)) + 
+	cost = len(X_dev) * ( ( (len_X_train*(2 + 4 + p*2)) + \
 		(len_X_train * math.log(len_X_train)) + (k) ) + (k*2 + k) )
-	time_diff = (float(two[0]) - float(one[0]))*3600 + 
+	time_diff = (float(two[0]) - float(one[0]))*3600 + \
 		(float(two[1]) - float(one[1]))*60 + (float(two[2]) - float(one[2]))
 
-	print(str(n) + ", " + str(p) + ", " + str(k) + ", " + str(int(cost)) + ", " 
+	print(str(n) + ", " + str(p) + ", " + str(k) + ", " + str(int(cost)) + ", " + \
 		str(time_diff) + ", " + str(parallel) + ", " + str(num_procs) + ", " + str(accuracy))
 
 
@@ -61,8 +63,8 @@ if __name__ == "__main__":
 
 	print("| # of rows | # of colums | k neighbors | approx. operations | time (s) | parallel | # of processes | accuracy")
 	
-	run_knn(816, 2, 3, False, 1)
-	run_knn(816, 2, 3, True, 50)
+	run_knn(1000, 2, 3, False, 1)
+	run_knn(1000, 2, 3, True, 50)
 
 	# rows
 	run_set1 = [ [10, 4, 10], [100, 4, 10], [1000, 4, 10], [10000, 4, 10] ]
