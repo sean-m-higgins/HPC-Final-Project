@@ -54,24 +54,24 @@ if __name__ == "__main__":
 	# print("Serial:")
 	# for row in run_set:
 	# 	run_knn(row[0], row[1], row[2], False)
-
+	run_knn(816, 2, 3, False)
 	run_knn(816, 2, 3, True)
 
-	print("Parallel:")
-	# Create the processes
-	p_list=[]
-	for i in range(1,num_procs+1):
-		cur_n = run_set[i-1][0]
-		cur_p = run_set[i-1][1]
-		cur_k = run_set[i-1][2]
-		p = Process(target=run_knn, name='Process'+str(i), args=(cur_n, cur_p, cur_k, True,))
-		p_list.append(p)
-		p.start()
-		print('Process:: ', p.name, 'Was assigned PID:: ', p.pid)
+	# print("Parallel:")
+	# # Create the processes
+	# p_list=[]
+	# for i in range(1,num_procs+1):
+	# 	cur_n = run_set[i-1][0]
+	# 	cur_p = run_set[i-1][1]
+	# 	cur_k = run_set[i-1][2]
+	# 	p = Process(target=run_knn, name='Process'+str(i), args=(cur_n, cur_p, cur_k, True,))
+	# 	p_list.append(p)
+	# 	p.start()
+	# 	print('Process:: ', p.name, 'Was assigned PID:: ', p.pid)
 
-	# Wait for all the processes to finish
-	for p in p_list:
-		p.join()
+	# # Wait for all the processes to finish
+	# for p in p_list:
+	# 	p.join()
 
 
 	# # Create the worker pool
