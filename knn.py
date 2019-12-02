@@ -78,6 +78,8 @@ class KnnParallel:
 	  	# Create the Queue which will have the partial products
 	  	distances=Queue()
 
+	  	p_list = []
+
 	  	for i in range(1, self.num_procs+1):
 	  		# A pair of queues per process for the two arrays
 	  		xq = Queue()
@@ -90,8 +92,12 @@ class KnnParallel:
 
 	  		# create the process
 	  		p = Process(target=self.get_distances, args=(test_instance, xq, yq, distances))
+	  		p_list.append(p)
 	  		p.start()
-	  		p.join()
+	  		# p.join()
+
+	  	for p in p_list:
+	  		p.join
 
 	  	# collect the individual distances
 	  	top_distances = []
