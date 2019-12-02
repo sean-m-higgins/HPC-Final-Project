@@ -9,6 +9,7 @@ from multiprocessing import Process, Pool
 def run_knn(n, p, k, parallel):
 	#initialize random data here
 	if n > 0 and p > 0:
+		np.random.seed(42)
 		X_train = np.random.rand(int(n*.8), p)
 		y_train = np.concatenate((np.zeros(int((n/2)*.8)), np.ones(int((n/2)*.8))))
 		X_dev = np.random.rand(int(n*.2), p)
