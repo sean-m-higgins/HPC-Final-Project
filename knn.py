@@ -71,11 +71,9 @@ class KnnParallel:
 	    """ distance = sqrt( sum( (differences between Ai and Bi)(squared) ) ) """
 	    return sqrt(sum((pow(a-b, 2)) for a, b in zip(row_one, row_two)))
 	  
-
-
 	def get_neighbors(self, test_instance):
 	  	""" get distances, sort, and return the k nearest neighbors """
-	  	distances=Queue()
+	  	# distances=Queue()
 	  	p_list = []
 
 	  	# parent_conn, child_conn = Pipe()
@@ -93,7 +91,7 @@ class KnnParallel:
 	  		y_slice = self.y_train[(i-1)*chunk:i*chunk]
 
 	  		# create the process
-	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, distances, pipe_list[i-1][1]))
+	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, pipe_list[i-1][1]))
 	  		p_list.append(p)
 	  		p.start()
 
@@ -122,15 +120,13 @@ class KnnParallel:
 	  	for i in range(self.k):
 	  		self.neighbors.append(all_distances[i][2])
 
-	def get_distances(self, test_instance, X, y, distances, conn):
+	def get_distances(self, test_instance, X, y, conn):
 		new_distances = []
 		for X_new, y_new in zip(X, y):
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
 		conn.send(new_distances)
 		# distances.put(new_distances)
-
-
 
 	def get_majority_vote(self):
 	  	""" return the vote with the highest count """
