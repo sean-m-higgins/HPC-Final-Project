@@ -81,8 +81,10 @@ class KnnParallel:
 	  	parent_conn, child_conn = Pipe()
 	  	
 	  	# for loop to create 50 pipes?
+	  	pipe_list = []
 	  	for i in range(1, self.num_procs+1):
-	  		parent_conn'i', child_conn'i' = Pipe()
+	  		parent_conn, child_conn = Pipe()
+	  		pipe_list.append([parent_conn, child_conn])
 
 	  	for i in range(1, self.num_procs+1):  #TODO
 	  		chunk = int(len(self.X_train)/self.num_procs)
@@ -91,16 +93,16 @@ class KnnParallel:
 	  		y_slice = self.y_train[(i-1)*chunk:i*chunk]
 
 	  		# create the process
-	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, distances, child_conn'i'))
+	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, distances, pipe_list[i-1][1]))
 	  		p_list.append(p)
 	  		p.start()
 
 	  	all_distances = []  #TODO better way to do this?
 	  	print("p_list: " + str(len(p_list)))
-	  	for p, i in zip(p_list, range(1, self.num_procs+1)):
+	  	for p, conn in zip(p_list, pipe_list):
 	  		print(i)
 	  		p.join()
-	  		next_arr = parent_conn'i'.recv()
+	  		next_arr = conn.recv()
 	  		print("Done")
 	  		for item in next_arr:
 	  			all_distances.append(item)  #TODO better way to do this?
