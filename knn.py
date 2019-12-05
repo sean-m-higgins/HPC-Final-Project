@@ -127,7 +127,7 @@ class KnnParallel:
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
 		conn.send(new_distances)
-		distances.put(new_distances)
+		# distances.put(new_distances)
 
 
 
