@@ -15,10 +15,15 @@ class Knn:
 		self.y_train = np.asarray(y_train)
 		self.neighbors = []
 		self.predictions = []
+		self.check = True
 		self.run()
 
 	def run(self):
+		index = 0 
 		for instance in self.X_dev:
+			if index == 3:
+				self.check = False
+			index += 1
 			self.neighbors = []
 			self.get_neighbors(instance)
 			self.predictions.append(self.get_majority_vote())
@@ -79,7 +84,8 @@ class KnnParallel:
 	  		parent_conn, child_conn = Pipe()
 	  		pipe_list.append([parent_conn, child_conn])
 
-	  	start = time.time()
+	  	if self.check:
+	  		start = time.time()
 
 	  	proc_list = []
 	  	for i in range(1, self.num_procs+1):
@@ -91,8 +97,9 @@ class KnnParallel:
 	  		proc_list.append(p)
 	  		p.start()
 
-	  	end = time.time()
-	  	print("proc time diff: " + str(end - start))
+	  	if self.check:
+		  	end = time.time()
+		  	print("proc time diff: " + str(end - start))
 
 	  	all_distances = []
 	  	for p, pipe in zip(proc_list, pipe_list):  # check status of worker/ recieved message in pipe # what if next pipe is not ready. will it wait? way to do any pipe from list? maybe first check if pipe is ready or if pipe in list of finished pipes
@@ -101,8 +108,9 @@ class KnnParallel:
 	  		for item in next_arr:
 	  			all_distances.append(item)
 
-	  	end = time.time()
-	  	print("proc and assign time diff: " + str(end - start))
+	  	if self.check:
+		  	end = time.time()
+		  	print("proc and assign time diff: " + str(end - start))
 
 	  	all_distances.sort(key=operator.itemgetter(1)) 
 
@@ -112,14 +120,16 @@ class KnnParallel:
 	def get_distances(self, test_instance, X, y, pipe):
 		new_distances = []
 
-		start = time.time()
+		if self.check:
+			start = time.time()
 		
 		for X_new, y_new in zip(X, y): 
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
 
-		end = time.time()
-		print("get_dist time diff: " + str(end - start))
+		if self.check:
+			end = time.time()
+			print("get_dist time diff: " + str(end - start))
 
 		pipe.send(new_distances)  
 
