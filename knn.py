@@ -143,13 +143,13 @@ class KnnParallel:
 			dist = self.euclidean_distance(test_instance, X_new)
 
 			end = time.time()
-			print("euclid time" + str(end - start))
+			print("euclid time diff" + str(end - start))
 			print("Done")
 
 			new_distances.append([X_new, dist, y_new])
 
 		end = time.time()
-		print("get_dist time" + str(end - start))
+		print("get_dist time diff" + str(end - start))
 		print("Done")
 
 		pipe.send(new_distances)  
