@@ -71,6 +71,8 @@ class KnnParallel:
 	    """ distance = sqrt( sum( (differences between Ai and Bi)(squared) ) ) """
 	    return sqrt(sum((pow(a-b, 2)) for a, b in zip(row_one, row_two)))
 	  
+
+
 	def get_neighbors(self, test_instance):
 	  	""" get distances, sort, and return the k nearest neighbors """
 	  	distances=Queue()
@@ -89,7 +91,7 @@ class KnnParallel:
 
 	  	print("p_list: " + str(len(p_list)))
 	  	for p in p_list:
-	  		p.join
+	  		p.join()
 
 	  	# collect the individual distances
 	  	top_distances = []
@@ -111,6 +113,8 @@ class KnnParallel:
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
 		distances.put(new_distances)
+
+
 
 	def get_majority_vote(self):
 	  	""" return the vote with the highest count """
