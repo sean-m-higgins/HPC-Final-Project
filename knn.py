@@ -87,6 +87,7 @@ class KnnParallel:
 	  		p_list.append(p)
 	  		p.start()
 
+	  	print(len(p_list))
 	  	for p in p_list:
 	  		p.join
 
@@ -106,7 +107,6 @@ class KnnParallel:
 
 	def get_distances(self, test_instance, X, y, distances):
 		new_distances = []
-
 		for X_new, y_new in zip(X, y):
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
