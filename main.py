@@ -15,14 +15,14 @@ def run_knn(n, p, k, parallel, num_procs):
 		X_dev = np.random.rand(int(n*.2), p)
 		y_dev = np.concatenate((np.zeros(int((n/2)*.2)), np.ones(int((n/2)*.2))))
 			
-	one = str(datetime.datetime.now().time()).split(":")
+	start = time.time()
 
 	if parallel:
 		knn = KnnParallel(k, X_dev, X_train, y_train, num_procs)
 	else:
 		knn = Knn(k, X_dev, X_train, y_train)
 
-	two = str(datetime.datetime.now().time()).split(":")
+	end = time.time()
 
 	predictions = knn.predictions
 	correct = 0
@@ -32,41 +32,23 @@ def run_knn(n, p, k, parallel, num_procs):
 	
 	accuracy = correct/len(predictions)
 
-	len_X_train = len(X_train)
 	# KNN cost = run() --> get_neighbors() + get_majority_vote()
 	# = (for each X_dev example) * { [get its neighbors] + [then get the top vote] }
 	# = (# of X_dev examples) * ...
 	# ...{ [ (# of X_train * ) + (sort # of X_train) + (k)] + [ (k*2) + (k) ] }
-	cost = len(X_dev) * ( ( (len_X_train*(2 + 4 + p*2)) + \
-		(len_X_train * math.log(len_X_train)) + (k) ) + (k*2 + k) )
-	time_diff = (float(two[0]) - float(one[0]))*3600 + \
-		(float(two[1]) - float(one[1]))*60 + (float(two[2]) - float(one[2]))
+	len_X_train = len(X_train)
+	cost = int( len(X_dev) * ( ( (len_X_train*(2 + 4 + p*2)) + \
+		(len_X_train * math.log(len_X_train)) + (k) ) + (k*2 + k) ) )
+	
+	time_diff = end - start
 
-	print(str(n) + ", " + str(p) + ", " + str(k) + ", " + str(int(cost)) + ", " + \
-		str(time_diff) + ", " + str(parallel) + ", " + str(num_procs) + ", " + str(accuracy))
+	print("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(n, p, k, cost, 
+		time_diff, parallel, num_procs, accuracy))
 
 
 if __name__ == "__main__":
 
-	# run_set_n = int(input("Enter Initial # of rows: "))
-	# run_set_p = int(input("Enter Initial # of colums: "))
-	# run_set_k = int(input("Enter Initial k neighbors: "))
-	
-	# get the number of CPUs 
-	# num_procs = multiprocessing.cpu_count()
-	# print('You have {0:1d} CPUs'.format(num_procs))
-
-	# run_set = []
-	# for i in range(num_procs):
-	# 	n = run_set_n + i*run_set_n*10
-	# 	p = run_set_p + i*run_set_p*5
-	# 	k = run_set_k + i*run_set_k*2
-	# 	run_set.append([n, p, k, True])
-
 	print("| # of rows | # of colums | k neighbors | approx. operations | time (s) | parallel | # of processes | accuracy |")
-	
-	# run_knn(1000, 2, 3, False, 1)
-	# run_knn(1000, 2, 3, True, 50)
 
 	# rows
 	run_set1 = [ [1000, 4, 5] ]#, [10000, 4, 5] ]#, [100000, 4, 5], [1000000, 4, 5] ]
