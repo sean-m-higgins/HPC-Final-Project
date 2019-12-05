@@ -78,11 +78,11 @@ class KnnParallel:
 	  	distances=Queue()
 	  	p_list = []
 
-	  	parent_conn, child_conn = Pipe()
+	  	# parent_conn, child_conn = Pipe()
 	  	
 	  	# for loop to create 50 pipes?
 	  	pipe_list = []
-	  	for i in range(1, self.num_procs+1):
+	  	for i in range(self.num_procs):
 	  		parent_conn, child_conn = Pipe()
 	  		pipe_list.append([parent_conn, child_conn])
 
@@ -100,28 +100,27 @@ class KnnParallel:
 	  	all_distances = []  #TODO better way to do this?
 	  	print("p_list: " + str(len(p_list)))
 	  	for p, conn in zip(p_list, pipe_list):
-	  		print(i)
 	  		p.join()
-	  		next_arr = conn.recv()
+	  		next_arr = conn[0].recv()
 	  		print("Done")
 	  		for item in next_arr:
 	  			all_distances.append(item)  #TODO better way to do this?
 
 
 	  	# collect the individual distances
-	  	top_distances = []
-	  	print(distances.qsize())	
-	  	# for i in range(distances.qsize()+1):
-	  	for i in range(50):
-	  		new_distances = distances.get()
-	  		for item in new_distances:
-	  			top_distances.append(item)
-	  	print(distances.qsize())		
-	  	print(len(top_distances))
-	  	top_distances.sort(key=operator.itemgetter(1))
+	  	# top_distances = []
+	  	# print(distances.qsize())	
+	  	# # for i in range(distances.qsize()+1):
+	  	# for i in range(50):
+	  	# 	new_distances = distances.get()
+	  	# 	for item in new_distances:
+	  	# 		top_distances.append(item)
+	  	# print(distances.qsize())		
+	  	print(len(all_distances))
+	  	all_distances.sort(key=operator.itemgetter(1))
 
 	  	for i in range(self.k):
-	  		self.neighbors.append(top_distances[i][2])
+	  		self.neighbors.append(all_distances[i][2])
 
 	def get_distances(self, test_instance, X, y, distances, conn):
 		new_distances = []
