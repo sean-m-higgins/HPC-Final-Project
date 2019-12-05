@@ -74,9 +74,8 @@ class KnnParallel:
 	  
 	def get_neighbors(self, test_instance):
 	  	""" get distances, sort, and return the k nearest neighbors """
-	  	
+
 	  	start = time.time()
-	  	print("pipe time"+ str(start))
 
 	  	pipe_list = []
 	  	for i in range(self.num_procs):
@@ -84,11 +83,9 @@ class KnnParallel:
 	  		pipe_list.append([parent_conn, child_conn])
 
 	  	end = time.time()
-	  	print(end - start)
-	  	print("Done")
+	  	print("pipe time diff: " + str(end - start))
 
 	  	start = time.time()
-	  	print("proc time"+ str(start))
 
 	  	proc_list = []
 	  	for i in range(1, self.num_procs+1):
@@ -101,11 +98,9 @@ class KnnParallel:
 	  		p.start()
 
 	  	end = time.time()
-	  	print(end - start)
-	  	print("Done")
+	  	print("proc time diff: " + str(end - start))
 
 	  	start = time.time()
-	  	print("assign time"+ str(start))
 
 	  	all_distances = []
 	  	for p, pipe in zip(proc_list, pipe_list):  # check status of worker/ recieved message in pipe # what if next pipe is not ready. will it wait? way to do any pipe from list? maybe first check if pipe is ready or if pipe in list of finished pipes
@@ -115,17 +110,14 @@ class KnnParallel:
 	  			all_distances.append(item)
 
 	  	end = time.time()
-	  	print(end - start)
-	  	print("Done")
+	  	print("assign time diff: " + str(end - start))
 
 	  	start = time.time()
-	  	print("sort time"+ str(start))
 
 	  	all_distances.sort(key=operator.itemgetter(1)) 
 
 	  	end = time.time()
-	  	print(end - start)
-	  	print("Done")
+	  	print("sort time diff: " + str(end - start))
 
 	  	for i in range(self.k):
 	  		self.neighbors.append(all_distances[i][2])
@@ -133,23 +125,14 @@ class KnnParallel:
 	def get_distances(self, test_instance, X, y, pipe):
 		new_distances = []
 
-		start_g = time.time()
+		start = time.time()
 		
 		for X_new, y_new in zip(X, y): 
-			
-			start = time.time()
-
 			dist = self.euclidean_distance(test_instance, X_new)
-
-			end = time.time()
-			print("euclid time diff" + str(end - start))
-			print("Done")
-
 			new_distances.append([X_new, dist, y_new])
 
-		end_g = time.time()
-		print("get_dist time diff" + str(end_g - start_g))
-		print("Done")
+		end = time.time()
+		print("get_dist time diff: " + str(end - start))
 
 		pipe.send(new_distances)  
 
