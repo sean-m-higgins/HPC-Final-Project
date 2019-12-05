@@ -73,60 +73,40 @@ class KnnParallel:
 	  
 	def get_neighbors(self, test_instance):
 	  	""" get distances, sort, and return the k nearest neighbors """
-	  	# distances=Queue()
-	  	p_list = []
-
-	  	# parent_conn, child_conn = Pipe()
-	  	
-	  	# for loop to create 50 pipes?
 	  	pipe_list = []
 	  	for i in range(self.num_procs):
 	  		parent_conn, child_conn = Pipe()
 	  		pipe_list.append([parent_conn, child_conn])
 
-	  	for i in range(1, self.num_procs+1):  #TODO
-	  		chunk = int(len(self.X_train)/self.num_procs)
-
+	  	proc_list = []
+	  	for i in range(1, self.num_procs+1):
+	  		chunk = int(len(self.X_train)/self.num_procs)  #have chunk size as param and change num_procs based on chunk size
 	  		x_slice = self.X_train[(i-1)*chunk:i*chunk]
 	  		y_slice = self.y_train[(i-1)*chunk:i*chunk]
 
-	  		# create the process
 	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, pipe_list[i-1][1]))
-	  		p_list.append(p)
+	  		proc_list.append(p)
 	  		p.start()
 
-	  	all_distances = []  #TODO better way to do this?
-	  	# print("p_list: " + str(len(p_list)))
-	  	for p, conn in zip(p_list, pipe_list):
+	  	all_distances = []
+	  	for p, pipe in zip(proc_list, pipe_list):  # check status of worker/ recieved message in pipe # what if next pipe is not ready. will it wait? way to do any pipe from list? maybe first check if pipe is ready or if pipe in list of finished pipes
 	  		p.join()
-	  		next_arr = conn[0].recv()
-	  		# print("Done")
+	  		next_arr = pipe[0].recv()
 	  		for item in next_arr:
-	  			all_distances.append(item)  #TODO better way to do this?
+	  			all_distances.append(item)
 
-
-	  	# collect the individual distances
-	  	# top_distances = []
-	  	# print(distances.qsize())	
-	  	# # for i in range(distances.qsize()+1):
-	  	# for i in range(50):
-	  	# 	new_distances = distances.get()
-	  	# 	for item in new_distances:
-	  	# 		top_distances.append(item)
-	  	# print(distances.qsize())		
-	  	# print(len(all_distances))
-	  	all_distances.sort(key=operator.itemgetter(1))
-
+	  	print(all_distances)
+	  	all_distances.sort(key=operator.itemgetter(1)) 
+	  	print(all_distances)
 	  	for i in range(self.k):
 	  		self.neighbors.append(all_distances[i][2])
 
-	def get_distances(self, test_instance, X, y, conn):
+	def get_distances(self, test_instance, X, y, pipe):
 		new_distances = []
-		for X_new, y_new in zip(X, y):
+		for X_new, y_new in zip(X, y):  
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
-		conn.send(new_distances)
-		# distances.put(new_distances)
+		pipe.send(new_distances)  
 
 	def get_majority_vote(self):
 	  	""" return the vote with the highest count """
