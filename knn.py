@@ -105,11 +105,8 @@ class KnnParallel:
 
 	def get_distances(self, test_instance, X, y, distances):
 		new_distances = []
-		print("X: " + str(X))
-		print("y: " + str(y))
+
 		for X_new, y_new in zip(X, y):
-			print("xn: " + str(X_new))
-			print("yn: " + str(y_new))
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
 		distances.put(new_distances)
