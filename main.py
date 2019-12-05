@@ -63,7 +63,7 @@ if __name__ == "__main__":
 	# 	k = run_set_k + i*run_set_k*2
 	# 	run_set.append([n, p, k, True])
 
-	print("| # of rows | # of colums | k neighbors | approx. operations | time (s) | parallel | # of processes | accuracy")
+	print("| # of rows | # of colums | k neighbors | approx. operations | time (s) | parallel | # of processes | accuracy |")
 	
 	# run_knn(1000, 2, 3, False, 1)
 	# run_knn(1000, 2, 3, True, 50)
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 	# k neighbors
 	run_set3 = [ [1000, 4, 10] ]#, [1000, 4, 100], [1000, 4, 1000], [1000, 4, 10000] ]
 	# processes
-	run_set4 = [ [1000, 4, 10, 16] ]#, [1000, 4, 10, 32], [1000, 4, 10, 64], [1000, 4, 10, 128] ]
+	run_set4 = [ [1000, 4, 5, 16] , [1000, 4, 5, 32], [1000, 4, 5, 64], [1000, 4, 5, 128] ]
 	
 	# Serial
 	for row in run_set1:
