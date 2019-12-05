@@ -87,7 +87,6 @@ class KnnParallel:
 	  		p_list.append(p)
 	  		p.start()
 
-	  	print(len(p_list))
 	  	for p in p_list:
 	  		p.join
 
