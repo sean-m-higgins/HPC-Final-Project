@@ -99,7 +99,7 @@ class KnnParallel:
 	  	print(len(top_distances))
 	  	top_distances.sort(key=operator.itemgetter(1))
 	  	print(top_distances[0][2])
-	  	print(top_distances[len(top_distances)][2])
+	  	print(top_distances[len(top_distances)-1][2])
 	  	for i in range(self.k):
 	  		self.neighbors.append(top_distances[i][2])
 
