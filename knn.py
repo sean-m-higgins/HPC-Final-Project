@@ -75,9 +75,11 @@ class KnnParallel:
 	  	""" get distances, sort, and retrun the k nearest neighbors """
 	  	distances=Queue()
 	  	p_list = []
-
-	  	for i in range(1, self.num_procs+1):
+	  	print(self.num_procs)
+	  	for i in range(1, self.num_procs+1):  #TODO
+	  		print(i)
 	  		chunk = int(len(self.X_train)/self.num_procs)
+	  		print(chunk)
 
 	  		x_slice = self.X_train[(i-1)*chunk:i*chunk]
 	  		y_slice = self.y_train[(i-1)*chunk:i*chunk]
