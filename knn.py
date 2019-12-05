@@ -104,7 +104,9 @@ class KnnParallel:
 
 	def get_distances(self, test_instance, X, y, distances):
 		new_distances = []
+		print("X")
 		print(X)
+		print("y")
 		print(y)
 		for X_new, y_new in zip(X, y):
 			print(X_new)
