@@ -2,7 +2,7 @@ from math import *
 import operator
 import numpy as np
 import multiprocessing
-from multiprocessing import Pool, Process, Queue
+from multiprocessing import Pool, Process, Queue, Pipe
 
 
 class Knn:
@@ -78,6 +78,12 @@ class KnnParallel:
 	  	distances=Queue()
 	  	p_list = []
 
+	  	parent_conn, child_conn = Pipe()
+	  	
+	  	# for loop to create 50 pipes?
+	  	for i in range(1, self.num_procs+1):
+	  		parent_conn'i', child_conn'i' = Pipe()
+
 	  	for i in range(1, self.num_procs+1):  #TODO
 	  		chunk = int(len(self.X_train)/self.num_procs)
 
@@ -85,14 +91,20 @@ class KnnParallel:
 	  		y_slice = self.y_train[(i-1)*chunk:i*chunk]
 
 	  		# create the process
-	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, distances))
+	  		p = Process(target=self.get_distances, args=(test_instance, x_slice, y_slice, distances, child_conn'i'))
 	  		p_list.append(p)
 	  		p.start()
 
+	  	all_distances = []  #TODO better way to do this?
 	  	print("p_list: " + str(len(p_list)))
-	  	for p in p_list:
+	  	for p, i in zip(p_list, range(1, self.num_procs+1)):
+	  		print(i)
 	  		p.join()
+	  		next_arr = parent_conn'i'.recv()
 	  		print("Done")
+	  		for item in next_arr:
+	  			all_distances.append(item)  #TODO better way to do this?
+
 
 	  	# collect the individual distances
 	  	top_distances = []
@@ -109,11 +121,12 @@ class KnnParallel:
 	  	for i in range(self.k):
 	  		self.neighbors.append(top_distances[i][2])
 
-	def get_distances(self, test_instance, X, y, distances):
+	def get_distances(self, test_instance, X, y, distances, conn):
 		new_distances = []
 		for X_new, y_new in zip(X, y):
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
+		conn.send(new_distances)
 		distances.put(new_distances)
 
 
