@@ -92,6 +92,7 @@ class KnnParallel:
 
 	  	# collect the individual distances
 	  	top_distances = []
+	  	print(distances.qsize())	
 	  	for i in range(distances.qsize()+1):
 	  		new_distances = distances.get()
 	  		for item in new_distances:
