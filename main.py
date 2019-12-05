@@ -42,7 +42,7 @@ def run_knn(n, p, k, parallel, num_procs):
 	
 	time_diff = end - start
 
-	print("{}, {}, {}, {}, {}, {}, {}, {}, {}".format(n, p, k, cost, 
+	print("{}, {}, {}, {}, {}, {}, {}, {}".format(n, p, k, cost, 
 		time_diff, parallel, num_procs, accuracy))
 
 
