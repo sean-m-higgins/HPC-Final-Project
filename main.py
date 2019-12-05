@@ -78,17 +78,17 @@ if __name__ == "__main__":
 	run_set4 = [ [1000, 4, 10, 16] ]#, [1000, 4, 10, 32], [1000, 4, 10, 64], [1000, 4, 10, 128] ]
 	
 	# Serial
-	# for row in run_set1:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set1:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set2:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set2:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set3:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set3:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set4:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set4:
+		run_knn(row[0], row[1], row[2], False, 1)
 
 	# Parallel
 	for row in run_set1:
