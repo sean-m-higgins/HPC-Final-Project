@@ -74,16 +74,10 @@ class KnnParallel:
 	  
 	def get_neighbors(self, test_instance):
 	  	""" get distances, sort, and return the k nearest neighbors """
-
-	  	start = time.time()
-
 	  	pipe_list = []
 	  	for i in range(self.num_procs):
 	  		parent_conn, child_conn = Pipe()
 	  		pipe_list.append([parent_conn, child_conn])
-
-	  	end = time.time()
-	  	print("pipe time diff: " + str(end - start))
 
 	  	start = time.time()
 
@@ -100,8 +94,6 @@ class KnnParallel:
 	  	end = time.time()
 	  	print("proc time diff: " + str(end - start))
 
-	  	start = time.time()
-
 	  	all_distances = []
 	  	for p, pipe in zip(proc_list, pipe_list):  # check status of worker/ recieved message in pipe # what if next pipe is not ready. will it wait? way to do any pipe from list? maybe first check if pipe is ready or if pipe in list of finished pipes
 	  		p.join()
@@ -110,14 +102,9 @@ class KnnParallel:
 	  			all_distances.append(item)
 
 	  	end = time.time()
-	  	print("assign time diff: " + str(end - start))
-
-	  	start = time.time()
+	  	print("proc and assign time diff: " + str(end - start))
 
 	  	all_distances.sort(key=operator.itemgetter(1)) 
-
-	  	end = time.time()
-	  	print("sort time diff: " + str(end - start))
 
 	  	for i in range(self.k):
 	  		self.neighbors.append(all_distances[i][2])
