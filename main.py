@@ -1,6 +1,6 @@
 from knn import Knn, KnnParallel
 import numpy as np
-import datetime
+import time
 import math
 import multiprocessing
 from multiprocessing import Process, Pool
