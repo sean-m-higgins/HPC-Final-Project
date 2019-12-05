@@ -95,10 +95,8 @@ class KnnParallel:
 	  		for item in next_arr:
 	  			all_distances.append(item)
 
-	  	print(all_distances)
 	  	all_distances.sort(key=operator.itemgetter(1)) 
-	  	print("after\n\n\n\n")
-	  	print(all_distances)
+
 	  	for i in range(self.k):
 	  		self.neighbors.append(all_distances[i][2])
 
