@@ -96,11 +96,11 @@ class KnnParallel:
 	  		p.start()
 
 	  	all_distances = []  #TODO better way to do this?
-	  	print("p_list: " + str(len(p_list)))
+	  	# print("p_list: " + str(len(p_list)))
 	  	for p, conn in zip(p_list, pipe_list):
 	  		p.join()
 	  		next_arr = conn[0].recv()
-	  		print("Done")
+	  		# print("Done")
 	  		for item in next_arr:
 	  			all_distances.append(item)  #TODO better way to do this?
 
@@ -114,7 +114,7 @@ class KnnParallel:
 	  	# 	for item in new_distances:
 	  	# 		top_distances.append(item)
 	  	# print(distances.qsize())		
-	  	print(len(all_distances))
+	  	# print(len(all_distances))
 	  	all_distances.sort(key=operator.itemgetter(1))
 
 	  	for i in range(self.k):
