@@ -69,7 +69,7 @@ if __name__ == "__main__":
 	# run_knn(1000, 2, 3, True, 50)
 
 	# rows
-	run_set1 = [ [1000, 4, 5], [10000, 4, 5] ]#, [100000, 4, 5], [1000000, 4, 5] ]
+	run_set1 = [ [1000, 4, 5] ]#, [10000, 4, 5] ]#, [100000, 4, 5], [1000000, 4, 5] ]
 	# columns
 	run_set2 = [ [1000, 4, 10] ]#, [1000, 40, 10], [1000, 400, 10], [1000, 4000, 10] ]
 	# k neighbors
@@ -78,17 +78,17 @@ if __name__ == "__main__":
 	run_set4 = [ [1000, 4, 10, 16] ]#, [1000, 4, 10, 32], [1000, 4, 10, 64], [1000, 4, 10, 128] ]
 	
 	# Serial
-	# for row in run_set1:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set1:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set2:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set2:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set3:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set3:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set4:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set4:
+		run_knn(row[0], row[1], row[2], False, 1)
 
 	# Parallel
 	for row in run_set1:
