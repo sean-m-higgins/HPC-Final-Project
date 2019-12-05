@@ -92,6 +92,7 @@ class KnnParallel:
 	  	print("p_list: " + str(len(p_list)))
 	  	for p in p_list:
 	  		p.join()
+	  		print("Done")
 
 	  	# collect the individual distances
 	  	top_distances = []
