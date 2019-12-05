@@ -72,7 +72,7 @@ class KnnParallel:
 	    return sqrt(sum((pow(a-b, 2)) for a, b in zip(row_one, row_two)))
 	  
 	def get_neighbors(self, test_instance):
-	  	""" get distances, sort, and retrun the k nearest neighbors """
+	  	""" get distances, sort, and return the k nearest neighbors """
 	  	distances=Queue()
 	  	p_list = []
 
@@ -92,10 +92,11 @@ class KnnParallel:
 
 	  	# collect the individual distances
 	  	top_distances = []
-	  	for i in range(distances.qsize()):
+	  	for i in range(distances.qsize()+1):
 	  		new_distances = distances.get()
 	  		for item in new_distances:
 	  			top_distances.append(item)
+	  	print(distances.qsize())		
 	  	print(len(top_distances))
 	  	top_distances.sort(key=operator.itemgetter(1))
 
