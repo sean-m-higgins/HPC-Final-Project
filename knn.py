@@ -77,7 +77,6 @@ class KnnParallel:
 	  	p_list = []
 
 	  	for i in range(1, self.num_procs+1):  #TODO
-	  		print(i)
 	  		chunk = int(len(self.X_train)/self.num_procs)
 
 	  		x_slice = self.X_train[(i-1)*chunk:i*chunk]
@@ -105,7 +104,11 @@ class KnnParallel:
 
 	def get_distances(self, test_instance, X, y, distances):
 		new_distances = []
+		print(X)
+		print(y)
 		for X_new, y_new in zip(X, y):
+			print(X_new)
+			print(y_new)
 			dist = self.euclidean_distance(test_instance, X_new)
 			new_distances.append([X_new, dist, y_new])
 		distances.put(new_distances)
