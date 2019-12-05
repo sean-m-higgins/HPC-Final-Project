@@ -75,19 +75,19 @@ class KnnParallel:
 	def get_neighbors(self, test_instance):
 	  	""" get distances, sort, and return the k nearest neighbors """
 	  	print("pipe time")
-	  	start = time.clock()
+	  	start = time.time()
 
 	  	pipe_list = []
 	  	for i in range(self.num_procs):
 	  		parent_conn, child_conn = Pipe()
 	  		pipe_list.append([parent_conn, child_conn])
 
-	  	end = time.clock()
+	  	end = time.time()
 	  	print(end - start)
 	  	print("Done")
 
 	  	print("proc time")
-	  	start = time.clock()
+	  	start = time.time()
 
 	  	proc_list = []
 	  	for i in range(1, self.num_procs+1):
@@ -99,12 +99,12 @@ class KnnParallel:
 	  		proc_list.append(p)
 	  		p.start()
 
-	  	end = time.clock()
+	  	end = time.time()
 	  	print(end - start)
 	  	print("Done")
 
 	  	print("assign time")
-	  	start = time.clock()
+	  	start = time.time()
 
 	  	all_distances = []
 	  	for p, pipe in zip(proc_list, pipe_list):  # check status of worker/ recieved message in pipe # what if next pipe is not ready. will it wait? way to do any pipe from list? maybe first check if pipe is ready or if pipe in list of finished pipes
@@ -113,16 +113,16 @@ class KnnParallel:
 	  		for item in next_arr:
 	  			all_distances.append(item)
 
-	  	end = time.clock()
+	  	end = time.time()
 	  	print(end - start)
 	  	print("Done")
 
 	  	print("sort time")
-	  	start = time.clock()
+	  	start = time.time()
 
 	  	all_distances.sort(key=operator.itemgetter(1)) 
 
-	  	end = time.clock()
+	  	end = time.time()
 	  	print(end - start)
 	  	print("Done")
 
@@ -133,21 +133,21 @@ class KnnParallel:
 		new_distances = []
 
 		print("get_dist time")
-		start = time.clock()
+		start = time.time()
 
 		for X_new, y_new in zip(X, y): 
 			print("euclid time")
-			start = time.clock()
+			start = time.time()
 
 			dist = self.euclidean_distance(test_instance, X_new)
 
-			end = time.clock()
+			end = time.time()
 			print(end - start)
 			print("Done")
 
 			new_distances.append([X_new, dist, y_new])
 
-		end = time.clock()
+		end = time.time()
 		print(end - start)
 		print("Done")
 
