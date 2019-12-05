@@ -15,15 +15,10 @@ class Knn:
 		self.y_train = np.asarray(y_train)
 		self.neighbors = []
 		self.predictions = []
-		self.check = True
 		self.run()
 
 	def run(self):
-		index = 0 
 		for instance in self.X_dev:
-			if index == 3:
-				self.check = False
-			index += 1
 			self.neighbors = []
 			self.get_neighbors(instance)
 			self.predictions.append(self.get_majority_vote())
@@ -64,10 +59,15 @@ class KnnParallel:
 		self.neighbors = []
 		self.predictions = []
 		self.num_procs = num_procs
+		self.check = True
 		self.run()
 
 	def run(self):
+		index = 0 
 		for instance in self.X_dev:
+			if index == 3:
+				self.check = False
+			index += 1
 			self.neighbors = []
 			self.get_neighbors(instance)
 			self.predictions.append(self.get_majority_vote())
