@@ -59,7 +59,7 @@ class KnnParallel:
 		self.neighbors = []
 		self.predictions = []
 		self.num_procs = num_procs
-		self.check = True
+		self.check = False
 		self.run()
 
 	def run(self):
