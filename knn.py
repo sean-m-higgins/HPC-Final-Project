@@ -64,9 +64,9 @@ class KnnParallel:
 
 	def run(self):  #TODO formula to evenly plit num_procs so that all parent + child procs = all possible procs
 		pipe_list = []
-	  	for i in range(self.p_procs):
-	  		parent_conn, child_conn = Pipe()
-	  		pipe_list.append([parent_conn, child_conn])
+		for i in range(self.p_procs):
+			parent_conn, child_conn = Pipe()
+			pipe_list.append([parent_conn, child_conn])
 
 	  	start = time.time()
 	  	proc_list = []
