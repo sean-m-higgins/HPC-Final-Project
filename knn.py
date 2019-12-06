@@ -84,8 +84,7 @@ class KnnParallel:
 	  		parent_conn, child_conn = Pipe()
 	  		pipe_list.append([parent_conn, child_conn])
 
-	  	if self.check:
-	  		start = time.time()
+	  	start = time.time()
 
 	  	proc_list = []
 	  	for i in range(1, self.num_procs+1):
@@ -97,8 +96,8 @@ class KnnParallel:
 	  		proc_list.append(p)
 	  		p.start()
 
+	  	end = time.time()
 	  	if self.check:
-		  	end = time.time()
 		  	print("proc time diff: " + str(end - start))
 
 	  	all_distances = []
@@ -109,7 +108,7 @@ class KnnParallel:
 	  			all_distances.append(item)
 
 	  	if self.check:
-		  	end = time.time()
+	  		end = time.time()
 		  	print("proc and assign time diff: " + str(end - start))
 
 	  	all_distances.sort(key=operator.itemgetter(1)) 
@@ -120,8 +119,7 @@ class KnnParallel:
 	def get_distances(self, test_instance, X, y, pipe):
 		new_distances = []
 
-		if self.check:
-			start = time.time()
+		start = time.time()
 		
 		for X_new, y_new in zip(X, y): 
 			dist = self.euclidean_distance(test_instance, X_new)
@@ -129,7 +127,7 @@ class KnnParallel:
 
 		if self.check:
 			end = time.time()
-			print("get_dist time diff: " + str(end - start))
+			print(end - start)
 
 		pipe.send(new_distances)  
 
