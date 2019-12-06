@@ -51,36 +51,33 @@ if __name__ == "__main__":
 	print("| # of rows | # of colums | k neighbors | approx. operations | time (s) | parallel | # of processes | accuracy |")
 
 	# rows
-	run_set1 = [ [1000, 4, 5] ]#, [10000, 4, 5] ]#, [100000, 4, 5], [1000000, 4, 5] ]
+	run_set1 = [ [1000, 4, 5], [5000, 4, 5] ]#, [100000, 4, 5], [1000000, 4, 5] ]
 	# columns
-	run_set2 = [ [1000, 4, 10] ]#, [1000, 40, 10], [1000, 400, 10], [1000, 4000, 10] ]
+	run_set2 = [ [1000, 4, 10], [1000, 40, 10] ]#, [1000, 400, 10], [1000, 4000, 10] ]
 	# k neighbors
-	run_set3 = [ [1000, 4, 10] ]#, [1000, 4, 100], [1000, 4, 1000], [1000, 4, 10000] ]
+	run_set3 = [ [1000, 4, 100], [1000, 4, 1000] ]#, [1000, 4, 10000] ]
 	# processes
-	run_set4 = [ [5000, 4, 5, 16], [5000, 4, 5, 32], [5000, 4, 5, 64], [5000, 4, 5, 128] ]
+	run_set4 = [ [2500, 4, 5, 2], [2500, 4, 5, 4], [2500, 4, 5, 8], [2500, 4, 5, 16], [2500, 4, 5, 32], [2500, 4, 5, 64], [2500, 4, 5, 128], [2500, 4, 5, 272] ]
 	
 	# Serial
-	# for row in run_set1:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set1:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set2:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set2:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set3:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set3:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# for row in run_set4:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	Parallel
+	for row in run_set1:
+		run_knn(row[0], row[1], row[2], True, 50)
 
-	# Parallel
-	# for row in run_set1:
-	# 	run_knn(row[0], row[1], row[2], True, 50)
+	for row in run_set2:
+		run_knn(row[0], row[1], row[2], True, 50)
 
-	# for row in run_set2:
-	# 	run_knn(row[0], row[1], row[2], True, 50)
-
-	# for row in run_set3:
-	# 	run_knn(row[0], row[1], row[2], True, 50)
+	for row in run_set3:
+		run_knn(row[0], row[1], row[2], True, 50)
 
 	for row in run_set4:
 		run_knn(row[0], row[1], row[2], True, row[3])
