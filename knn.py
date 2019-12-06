@@ -82,20 +82,16 @@ class KnnParallel:
 			proc_list.append(p)
 			p.start()
 
-	  	end = time.time()
-	  	if self.check:
-	  		print("proc time diff: " + str(end - start))
-
 		all_neighbors = []
 		for p, pipe in zip(proc_list, pipe_list):  #TODO as below?
-	  		p.join()
-	  		next_neighbors = pipe[0].recv()
-	  		for item in next_neighbors:
-	  			all_neighbors.append(item)
+			p.join()
+			next_neighbors = pipe[0].recv()
+			for item in next_neighbors:
+				all_neighbors.append(item)
 
-	  	end = time.time()
-	  	if self.check:
-	  		print("proc time diff: " + str(end - start))
+		end = time.time()
+		if self.check:
+			print("parent time diff: " + str(end - start))
 		
 		for instance in all_neighbors:
 			self.predictions.append(self.get_majority_vote(instance))
