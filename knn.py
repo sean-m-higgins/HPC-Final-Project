@@ -59,7 +59,7 @@ class KnnParallel:
 		self.predictions = []
 		self.p_procs = int(num_procs*0.33)
 		self.c_procs = int(num_procs*0.66)
-		self.check = True
+		self.check = False
 		self.run()
 
 	def run(self):  #TODO formula to evenly plit num_procs so that all parent + child procs = all possible procs
