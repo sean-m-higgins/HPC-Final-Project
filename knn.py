@@ -85,7 +85,8 @@ class KnnParallel:
 		for p, pipe in zip(proc_list, pipe_list):  #TODO as below?
 	  		p.join()
 	  		next_neighbors = pipe[0].recv()
-	  		all_neighbors.append(next_neighbors)
+	  		for item in next_neighbors:
+	  			all_neighbors.append(next_neighbors)
 		
 		for instance in all_neighbors:
 			self.predictions.append(self.get_majority_vote(instance))
