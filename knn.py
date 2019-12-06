@@ -86,7 +86,7 @@ class KnnParallel:
 	  		p.join()
 	  		next_neighbors = pipe[0].recv()
 	  		for item in next_neighbors:
-	  			all_neighbors.append(next_neighbors)
+	  			all_neighbors.append(item)
 		
 		for instance in all_neighbors:
 			self.predictions.append(self.get_majority_vote(instance))
