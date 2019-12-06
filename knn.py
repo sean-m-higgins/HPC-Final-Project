@@ -68,8 +68,9 @@ class KnnParallel:
 			parent_conn, child_conn = Pipe()
 			pipe_list.append([parent_conn, child_conn])
 
-	  	start = time.time()
-	  	proc_list = []
+		start = time.time()
+
+		proc_list = []
 		for index in range(1, self.p_procs):
 			if index == 3:
 				self.check = False
@@ -81,12 +82,20 @@ class KnnParallel:
 	  		proc_list.append(p)
 	  		p.start()
 
+	  	end = time.time()
+	  	if self.check:
+	  		print("proc time diff: " + str(end - start))
+
 		all_neighbors = []
 		for p, pipe in zip(proc_list, pipe_list):  #TODO as below?
 	  		p.join()
 	  		next_neighbors = pipe[0].recv()
 	  		for item in next_neighbors:
 	  			all_neighbors.append(item)
+
+	  	end = time.time()
+	  	if self.check:
+	  		print("proc time diff: " + str(end - start))
 		
 		for instance in all_neighbors:
 			self.predictions.append(self.get_majority_vote(instance))
