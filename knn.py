@@ -104,9 +104,9 @@ class KnnParallel:
 	def get_neighbors(self, test_instances, p_conn):
 	  	""" get distances, sort, and return the k nearest neighbors """
 	  	all_neighbors = []
-		for test_instance in test_instances:
-		  	pipe_list = []
-		  	for i in range(self.c_procs):
+	  	for test_instance in test_instances:
+	  		pipe_list = []
+	  		for i in range(self.c_procs):
 		  		parent_conn, child_conn = Pipe()
 		  		pipe_list.append([parent_conn, child_conn])
 
