@@ -65,8 +65,8 @@ class KnnParallel:
 	def run(self):
 		index = 0 
 		for instance in self.X_dev:
-			if index == 3:
-				self.check = False
+			# if index == 3:
+			# 	self.check = False
 			index += 1
 			self.neighbors = []
 			self.get_neighbors(instance)
