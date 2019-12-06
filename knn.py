@@ -76,11 +76,11 @@ class KnnParallel:
 				self.check = False
 
 			chunk = int(len(self.X_dev)/self.p_procs)  #have chunk size as param and change num_procs based on chunk size
-		  	x_dev_slice = self.X_dev[(i-1)*chunk:i*chunk]
+			x_dev_slice = self.X_dev[(i-1)*chunk:i*chunk]
 
 			p = Process(target=self.get_neighbors, args=(x_dev_slice, pipe_list[index-1][1]))
-	  		proc_list.append(p)
-	  		p.start()
+			proc_list.append(p)
+			p.start()
 
 	  	end = time.time()
 	  	if self.check:
