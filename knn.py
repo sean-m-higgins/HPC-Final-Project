@@ -4,6 +4,7 @@ import numpy as np
 import multiprocessing
 from multiprocessing import Process, Pipe
 import time
+import numba
 
 
 class Knn:
@@ -96,6 +97,7 @@ class KnnParallel:
 		for instance in all_neighbors:
 			self.predictions.append(self.get_majority_vote(instance))
 
+	@numba.jit
 	#from https://dataconomy.com/2015/04/implementing-the-five-most-popular-similarity-measures-in-python/
 	def euclidean_distance(self, row_one, row_two):
 	    """ distance = sqrt( sum( (differences between Ai and Bi)(squared) ) ) """
