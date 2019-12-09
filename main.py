@@ -85,7 +85,7 @@ if __name__ == "__main__":
 	# for row in run_set2:
 	# 	run_knn(row[0], row[1], row[2], True, 32)
 
-	run_knn(1000, 40000, 10, True, 32)
+	run_knn(1000, 10000, 10, True, 32)
 
 	print("Done")
 
