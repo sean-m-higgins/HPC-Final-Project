@@ -51,17 +51,19 @@ if __name__ == "__main__":
 	print("| # of rows | # of colums | k neighbors | approx. operations | time (s) | parallel | # of processes | accuracy |")
 
 	# rows
-	run_set1 = [ [1000, 4, 5], [5000, 4, 5] ]#, [100000, 4, 5], [1000000, 4, 5] ]
+	run_set1 = [ [1000, 4, 5], [2000, 4, 5], [3000, 4, 5], [4000, 4, 5], [5000, 4, 5] ]
 	# columns
-	run_set2 = [ [1000, 4, 10], [1000, 40, 10] ]#, [1000, 400, 10], [1000, 4000, 10] ]
+	run_set2 = [ [1000, 4, 10], [1000, 40, 10], [1000, 400, 10], [1000, 4000, 10] , [1000, 40000, 10] ]
 	# k neighbors
-	run_set3 = [ [1000, 4, 100], [1000, 4, 200] ]#, [1000, 4, 10000] ]
+	run_set3 = [ [1000, 4, 10], [1000, 4, 100], [1000, 4, 200], [1000, 4, 400], [1000, 4, 800] ]
 	# processes
 	run_set4 = [[2500, 4, 5, 8], [2500, 4, 5, 16], [2500, 4, 5, 32], [2500, 4, 5, 64], [2500, 4, 5, 128], [2500, 4, 5, 272] ]
 	
 	# Serial
 	for row in run_set1:
 		run_knn(row[0], row[1], row[2], False, 1)
+
+	print("Done")
 
 	for row in run_set2:
 		run_knn(row[0], row[1], row[2], False, 1)
