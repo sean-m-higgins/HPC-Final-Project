@@ -77,20 +77,22 @@ if __name__ == "__main__":
 	# print("Done")
 
 	# # Parallel
-	for row in run_set1:
-		run_knn(row[0], row[1], row[2], True, 32)
+	# for row in run_set1:
+	# 	run_knn(row[0], row[1], row[2], True, 32)
+
+	# print("Done")
+
+	# for row in run_set2:
+	# 	run_knn(row[0], row[1], row[2], True, 32)
+
+	run_knn(1000, 40000, 10, True, 32)
 
 	print("Done")
 
-	for row in run_set2:
-		run_knn(row[0], row[1], row[2], True, 32)
+	# for row in run_set3:
+	# 	run_knn(row[0], row[1], row[2], True, 32)
 
-	print("Done")
-
-	for row in run_set3:
-		run_knn(row[0], row[1], row[2], True, 32)
-
-	print("Done")
+	# print("Done")
 
 	# for row in run_set4:
 	# 	run_knn(row[0], row[1], row[2], True, row[3])
