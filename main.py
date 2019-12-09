@@ -60,10 +60,10 @@ if __name__ == "__main__":
 	run_set4 = [[2500, 4, 5, 8], [2500, 4, 5, 16], [2500, 4, 5, 32], [2500, 4, 5, 64], [2500, 4, 5, 128], [2500, 4, 5, 272] ]
 	
 	# # Serial
-	for row in run_set1:
-		run_knn(row[0], row[1], row[2], False, 1)
+	# for row in run_set1:
+	# 	run_knn(row[0], row[1], row[2], False, 1)
 
-	print("Done")
+	# print("Done")
 
 	# for row in run_set2:
 	# 	run_knn(row[0], row[1], row[2], False, 1)
