@@ -53,7 +53,7 @@ if __name__ == "__main__":
 	# rows
 	run_set1 = [ [1000, 4, 5], [2000, 4, 5], [3000, 4, 5], [4000, 4, 5], [5000, 4, 5] ]
 	# columns
-	run_set2 = [ [1000, 4, 10], [1000, 40, 10], [1000, 400, 10], [1000, 4000, 10] , [1000, 40000, 10] ]
+	run_set2 = [ [1000, 4, 10], [1000, 40, 10], [1000, 400, 10], [1000, 4000, 10] ], [1000, 40000, 10] ]
 	# k neighbors
 	run_set3 = [ [1000, 4, 10], [1000, 4, 100], [1000, 4, 200], [1000, 4, 400], [1000, 4, 800] ]
 	# processes
@@ -68,12 +68,13 @@ if __name__ == "__main__":
 	# for row in run_set2:
 	# 	run_knn(row[0], row[1], row[2], False, 1)
 
-	# print("Done")
+	run_knn(1000, 40000, 10, False, 1)
+	print("Done")
 
-	# for row in run_set3:
-	# 	run_knn(row[0], row[1], row[2], False, 1)
+	for row in run_set3:
+		run_knn(row[0], row[1], row[2], False, 1)
 
-	# print("Done")
+	print("Done")
 
 	# Parallel
 	for row in run_set1:
