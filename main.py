@@ -65,15 +65,15 @@ if __name__ == "__main__":
 
 	# print("Done")
 
-	for row in run_set2:
-		run_knn(row[0], row[1], row[2], False, 1)
+	# for row in run_set2:
+	# 	run_knn(row[0], row[1], row[2], False, 1)
 
-	print("Done")
+	# print("Done")
 
-	for row in run_set3:
-		run_knn(row[0], row[1], row[2], False, 1)
+	# for row in run_set3:
+	# 	run_knn(row[0], row[1], row[2], False, 1)
 
-	print("Done")
+	# print("Done")
 
 	# Parallel
 	for row in run_set1:
